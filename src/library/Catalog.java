@@ -28,10 +28,11 @@ public final class Catalog {
         return List.copyOf(books.values());
     }
 
-    public List<Book> search(String query) {
-        Objects.requireNonNull(query, "Search query is required");
-        return books.values().stream()
-                .filter(book -> book.title().contains(query))
-                .toList();
-    }
+   public List<Book> search(String query) {
+    Objects.requireNonNull(query, "Search query is required");
+    String normalizedQuery = query.toLowerCase(Locale.ROOT);
+    return books.values().stream()
+            .filter(book -> book.title().toLowerCase(Locale.ROOT).contains(normalizedQuery))
+            .toList();
+}
 }
